@@ -9,17 +9,48 @@
 
   button {
     float: right;
-    background-color: white;
-    color: #050f0b;
   }
 
-  button:hover {
-    background-color: #5000ca;
-    color: white;
+  .MuiOutlinedInput-root {
+    color: inherit; 
+
+    fieldset {
+      border-color: rgba(0, 0, 0, 0.23); 
+    }
+
+    &:hover fieldset {
+      border-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &.Mui-focused fieldset {
+      border-color: #5000ca; 
+    }
   }
 
-  fieldset {
-    background-color: white;
+  /* 📌 ករណីធម្មតា (Light Mode): អក្សរពណ៌ខ្មៅ/ប្រផេះងងឹត */
+  input, textarea {
+    color: #222222 !important;
+    -webkit-text-fill-color: #222222 !important;
+  }
+}
+
+/* 📌 ករណីពេលស្ថិតក្នុង Dark Mode: ប្តូរអក្សរក្នុង Input និង Textarea ឱ្យទៅជាពណ៌សស្វ័យប្រវត្តិ */
+/* (កត់ចំណាំ៖ បើ Website របស់អ្នកប្រើ Class ផ្សេងសម្រាប់ Dark ដូចជា .dark-mode ឬ [data-theme="dark"] អ្នកអាចប្តូរ .dark ខាងក្រោមនេះតាមកូដ Project របស់អ្នក) */
+.dark, [data-theme="dark"], body.dark-mode {
+  .contact-form {
+    input, textarea {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+    }
+
+    .MuiOutlinedInput-root {
+      fieldset {
+        border-color: rgba(255, 255, 255, 0.23);
+      }
+      &:hover fieldset {
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+    }
   }
 }
 

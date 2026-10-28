@@ -34,7 +34,8 @@ function App() {
             <Expertise/>
             <Timeline/>
             <Project/>
-            <Contact/>
+            {/* 📌 បន្ថែម parentToChild={{mode}} ត្រង់នេះ ដើម្បីឱ្យ Contact ដឹង state របស់ mode */}
+            <Contact parentToChild={{mode}} />
         </FadeIn>
         <Footer />
     </div>

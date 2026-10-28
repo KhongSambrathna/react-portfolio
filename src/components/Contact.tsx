@@ -1,12 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import '../assets/styles/Contact.scss';
-// import emailjs from '@emailjs/browser';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import TextField from '@mui/material/TextField';
 
-function Contact() {
+function Contact({ parentToChild }: any) {
+  const { mode } = parentToChild || { mode: 'dark' };
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -16,38 +17,43 @@ function Contact() {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<boolean>(false);
 
-  const form = useRef();
+  const validateForm = () => {
+    const isNameEmpty = name.trim() === '';
+    const isEmailEmpty = email.trim() === '';
+    const isMessageEmpty = message.trim() === '';
 
-  const sendEmail = (e: any) => {
-    e.preventDefault();
+    setNameError(isNameEmpty);
+    setEmailError(isEmailEmpty);
+    setMessageError(isMessageEmpty);
 
-    setNameError(name === '');
-    setEmailError(email === '');
-    setMessageError(message === '');
-
-    /* Uncomment below if you want to enable the emailJS */
-
-    // if (name !== '' && email !== '' && message !== '') {
-    //   var templateParams = {
-    //     name: name,
-    //     email: email,
-    //     message: message
-    //   };
-
-    //   console.log(templateParams);
-    //   emailjs.send('service_id', 'template_id', templateParams, 'api_key').then(
-    //     (response) => {
-    //       console.log('SUCCESS!', response.status, response.text);
-    //     },
-    //     (error) => {
-    //       console.log('FAILED...', error);
-    //     },
-    //   );
-    //   setName('');
-    //   setEmail('');
-    //   setMessage('');
-    // }
+    return !isNameEmpty && !isEmailEmpty && !isMessageEmpty;
   };
+
+  const handleSendEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const recipientEmail = 'your-email@gmail.com'; 
+    const subject = encodeURIComponent(`Message from ${name} (${email}) via Portfolio`);
+    const body = encodeURIComponent(`Name: ${name}\nContact: ${email}\n\nMessage:\n${message}`);
+
+    window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+  };
+
+  const handleSendTelegram = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const text = `👋 Hello Brathna,\n\n👤 Name: ${name}\n📞 Contact: ${email}\n💬 Message: ${message}`;
+    const telegramUrl = `https://t.me/sambrathnajr?text=${encodeURIComponent(text)}`;
+    window.open(telegramUrl, '_blank');
+  };
+
+  // កំណត់ពណ៌ដាច់ខាតតាម mode
+  const isDark = mode === 'dark';
+  const textColor = isDark ? '#ffffff' : '#000000';
+  const labelColor = isDark ? '#b0b0b0' : '#555555';
+  const borderColor = isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)';
 
   return (
     <div id="contact">
@@ -56,7 +62,6 @@ function Contact() {
           <h1>Contact Me</h1>
           <p>Got a project waiting to be realized? Let's collaborate and make it happen!</p>
           <Box
-            ref={form}
             component="form"
             noValidate
             autoComplete="off"
@@ -65,32 +70,58 @@ function Contact() {
             <div className='form-flex'>
               <TextField
                 required
-                id="outlined-required"
+                id="name-input"
                 label="Your Name"
                 placeholder="What's your name?"
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
+                  if (e.target.value) setNameError(false);
                 }}
                 error={nameError}
                 helperText={nameError ? "Please enter your name" : ""}
+                InputLabelProps={{ shrink: true }}
+                sx={{
+                  // ប្រើប្រាស់ !important ដើម្បីទប់ស្កាត់មិនឱ្យ CSS ផ្សេងມາ Override ពណ៌អក្សរ
+                  input: { color: `${textColor} !important`, WebkitTextFillColor: `${textColor} !important` },
+                  label: { color: `${labelColor} !important` },
+                  '& .MuiOutlinedInput-root': {
+                    color: textColor,
+                    '& fieldset': { borderColor: borderColor },
+                    '&:hover fieldset': { borderColor: textColor },
+                    '&.Mui-focused fieldset': { borderColor: textColor },
+                  }
+                }}
               />
               <TextField
                 required
-                id="outlined-required"
+                id="email-input"
                 label="Email / Phone"
                 placeholder="How can I reach you?"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
+                  if (e.target.value) setEmailError(false);
                 }}
                 error={emailError}
                 helperText={emailError ? "Please enter your email or phone number" : ""}
+                InputLabelProps={{ shrink: true }}
+                sx={{
+                  input: { color: `${textColor} !important`, WebkitTextFillColor: `${textColor} !important` },
+                  label: { color: `${labelColor} !important` },
+                  '& .MuiOutlinedInput-root': {
+                    color: textColor,
+                    '& fieldset': { borderColor: borderColor },
+                    '&:hover fieldset': { borderColor: textColor },
+                    '&.Mui-focused fieldset': { borderColor: textColor },
+                  }
+                }}
               />
             </div>
+
             <TextField
               required
-              id="outlined-multiline-static"
+              id="message-input"
               label="Message"
               placeholder="Send me any inquiries or questions"
               multiline
@@ -99,13 +130,47 @@ function Contact() {
               value={message}
               onChange={(e) => {
                 setMessage(e.target.value);
+                if (e.target.value) setMessageError(false);
               }}
               error={messageError}
               helperText={messageError ? "Please enter the message" : ""}
+              InputLabelProps={{ shrink: true }}
+              sx={{
+                textarea: { color: `${textColor} !important`, WebkitTextFillColor: `${textColor} !important` },
+                label: { color: `${labelColor} !important` },
+                '& .MuiOutlinedInput-root': {
+                  color: textColor,
+                  '& fieldset': { borderColor: borderColor },
+                  '&:hover fieldset': { borderColor: textColor },
+                  '&.Mui-focused fieldset': { borderColor: textColor },
+                }
+              }}
             />
-            <Button variant="contained" endIcon={<SendIcon />} onClick={sendEmail}>
-              Send
-            </Button>
+            
+            <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
+              <Button 
+                variant="contained" 
+                endIcon={<SendIcon />} 
+                onClick={handleSendEmail}
+                sx={{ flex: 1, minWidth: '150px' }}
+              >
+                Send via Email
+              </Button>
+
+              <Button 
+                variant="contained" 
+                startIcon={<TelegramIcon />} 
+                onClick={handleSendTelegram}
+                sx={{ 
+                  flex: 1, 
+                  minWidth: '150px',
+                  backgroundColor: '#229ED9', 
+                  '&:hover': { backgroundColor: '#1d87b9' } 
+                }}
+              >
+                Send via Telegram
+              </Button>
+            </div>
           </Box>
         </div>
       </div>
