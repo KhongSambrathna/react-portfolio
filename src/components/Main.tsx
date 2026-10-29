@@ -18,8 +18,8 @@ function Main() {
             <a href="https://www.linkedin.com/in/khongsambrathna/" target="_blank" rel="noreferrer"><LinkedInIcon/></a>
           </div>
           <h1>Khong Sambrathna</h1>
-          <p>Physical Education Teacher</p>
-          <p>Full Stack Web Development</p>
+          <p>Physics Teacher</p>
+          <p>Full Stack Web</p>
           <div className="mobile_social_icons">
             <a href="https://github.com/khongsambrathna" target="_blank" rel="noreferrer"><GitHubIcon/></a>
             <a href="https://www.linkedin.com/in/khongsambrathna/" target="_blank" rel="noreferrer"><LinkedInIcon/></a>
