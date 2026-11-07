@@ -1,6 +1,7 @@
 import React from "react";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import profile_1 from '../assets/images/profile.jpg';
 import '../assets/styles/Main.scss';
 
@@ -16,6 +17,7 @@ function Main() {
           <div className="social_icons">
             <a href="https://github.com/khongsambrathna" target="_blank" rel="noreferrer"><GitHubIcon/></a>
             <a href="https://www.linkedin.com/in/khongsambrathna/" target="_blank" rel="noreferrer"><LinkedInIcon/></a>
+            <a href="https://t.me/sambrathnajr" target="_blank" rel="noreferrer"><TelegramIcon/></a>
           </div>
           <h1>Brathna</h1>
           <p>Physics Teacher</p>
@@ -23,6 +25,7 @@ function Main() {
           <div className="mobile_social_icons">
             <a href="https://github.com/khongsambrathna" target="_blank" rel="noreferrer"><GitHubIcon/></a>
             <a href="https://www.linkedin.com/in/khongsambrathna/" target="_blank" rel="noreferrer"><LinkedInIcon/></a>
+            <a href="https://t.me/sambrathnajr" target="_blank" rel="noreferrer"><TelegramIcon/></a>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React from "react";
 import mock08 from '../assets/images/mock08.png';
 import mock09 from '../assets/images/mock09.png';
 import mock10 from '../assets/images/mock10.png';
+import mock11 from '../assets/images/mock11.png';
 import '../assets/styles/Project.scss';
 
 function Project() {
@@ -9,6 +10,11 @@ function Project() {
     <div className="projects-container" id="projects">
         <h1>Personal Projects</h1>
         <div className="projects-grid">
+            <div className="project">
+                <a href="https://kru.brathna.com/" target="_blank" rel="noreferrer"><img src={mock11} className="zoom" alt="thumbnail" width="100%"/></a>
+                <a href="https://kru.brathna.com/" target="_blank" rel="noreferrer"><h2>School Management</h2></a>
+                <p>A school management system for lower secondary schools — manages classes, students and teachers, daily attendance, score entry and reports, honor rolls, student record booklets, and teacher schedules, all in Khmer.</p>
+            </div>
             <div className="project">
                 <a href="https://id.brathna.com/" target="_blank" rel="noreferrer"><img src={mock10} className="zoom" alt="thumbnail" width="100%"/></a>
                 <a href="https://id.brathna.com/" target="_blank" rel="noreferrer"><h2>Football ID Verify</h2></a>
